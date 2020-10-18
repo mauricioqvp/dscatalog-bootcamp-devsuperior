@@ -9,7 +9,7 @@ export type Product = {
     description: string;
     price: number;
     imgUrl: string;
-    date:  string;
+    date: string;
     catergories: Category[];
 }
 
