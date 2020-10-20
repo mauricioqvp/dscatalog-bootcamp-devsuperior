@@ -2,54 +2,66 @@ import React, { useState } from 'react';
 import BaseForm from '../../BaseForm';
 import './styles.scss';
 
+type FormState = {
+    name: string;
+    price: string;
+    category: string;
+}
+
 const Form = () => {
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('computador');
+    const [formData, setformData] = useState<FormState>({
+        name: 'computador',
+        price: '',
+        category: 'eletronicos'
+    });
 
-    const handleOnChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        setformData(data => ({ ...data, [name]: value }));
     }
 
-    const handleOnChangePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(event.target.value);
-    }
+    const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+        event.preventDefault();
 
-    const handleOnChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setCategory(event.target.value);
+        console.log(formData);
     }
 
     return (
+    <form onClick={handleSubmit}>
         <BaseForm title="cadastrar um produto">
-            <h1 className="my-5" >
-                Nome: {name} <br />
-                Preço: {price} <br />
-                Categoria: {category}
-            </h1>
             <div className="row">
                 <div className="col-6">
                     <input
-                        value={name}
+                        value={formData.name}
+                        name="name"
                         type="text"
                         className="form-control mb-5"
-                        onChange = {handleOnChangeName}
+                        onChange = {handleOnChange}
                         placeholder="Nome do produto"
                     />
-                    <select value={category} className="form-control mb-5" onChange={handleOnChangeCategory}>
+                    <select 
+                        value={formData.category}
+                        className="form-control mb-5" onChange={handleOnChange}
+                        name="category"
+                    >
                         <option value="livros">Livros</option>
                         <option value="computadores">Computadores</option>
                         <option value="eletronicos">Eletrônicos</option>
                     </select>
                     <input
-                        value={price}
+                        value={formData.price}
+                        name="price"
                         type="text"
                         className="form-control"
-                        onChange = {handleOnChangePrice}
+                        onChange = {handleOnChange}
                         placeholder="Preço"
                     />
                 </div>
             </div>
         </BaseForm>
+    </form>
     )
 }
 
