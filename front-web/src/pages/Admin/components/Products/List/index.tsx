@@ -5,7 +5,7 @@ const List = () => {
     const history = useHistory();
 
     const handleCreate = () => {
-        history.push('/admin/product/create');
+        history.push('/admin/products/create');
     }
     
     return (
@@ -14,7 +14,7 @@ const List = () => {
                 ADICIONAR
             </button>
         </div>
-    );
+    )
 }
 
 export default List;
