@@ -26,6 +26,8 @@ const Form = () => {
         .catch(() => {
             toast.error('Erro ao salvar produto!');
         })
+
+        makePrivateRequest({ url: '/products', method: 'POST', data });
     }
 
     return (
